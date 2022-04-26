@@ -4,8 +4,9 @@ import styled from "styled-components";
 
 const InfluencerSearch = () => {
   const [influencers, setInfluencers] = useState(null);
+
   const [searchString, setSearchString] = useState("");
-  // const [platformString, setPlatformString] = useState("all");
+  const [platformString, setPlatformString] = useState("all");
 
   useEffect(() => {
     getInfluencers();
@@ -30,7 +31,7 @@ const InfluencerSearch = () => {
           value={searchString}
           onChange={(e) => setSearchString(e.target.value)}
         />
-        {/* <SelectInput
+        <SelectInput
           value={platformString}
           onChange={(e) => setPlatformString(e.target.value)}
           name="platforms"
@@ -42,14 +43,24 @@ const InfluencerSearch = () => {
           <option value="facebook">Facebook</option>
           <option value="tiktok">Tik-Tok</option>
           <option value="youtube">Youtube</option>
-        </SelectInput> */}
+        </SelectInput>
       </SearchInputContainer>
       <SearchContainer>
         {!influencers && <Loader />}
         <div>
-          {influencers?.map((inf, i) => (
+          {influencers
+            ?.filter((inf) => inf?.platform?.name === platformString) // need to add validation for Tick-Tock vs tiktok
+            .map((filteredInfluencer, i) => (
+              <InfluencerCard
+                influencer={filteredInfluencer}
+                key={"inf_card_" + i}
+              />
+            ))}
+
+          {/* {
+          influencers?.map((inf, i) => (
             <InfluencerCard influencer={inf} key={"inf_card_" + i} />
-          ))}
+          ))} */}
         </div>
       </SearchContainer>
     </div>

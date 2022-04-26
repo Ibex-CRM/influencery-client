@@ -2,8 +2,6 @@ import styled from "styled-components";
 import { errorDefaultSrc } from "../Helpers.js";
 
 const InfluencerCard = ({ influencer }) => {
-  // const getImage = (platform) => require(`../images/${platform}.png`);
-
   return (
     <Card>
       <ProfileContainer>
@@ -26,13 +24,6 @@ const InfluencerCard = ({ influencer }) => {
           ))}
         </TagContainer>
       </ContentContainer>
-      <div>
-        {/* {console.log(
-          typeof getImage(influencer?.platform?.name),
-          "console image stuff"
-        )} */}
-      </div>
-      {/* <PlatformImage src={getImage(influencer?.platform?.name)} alt="platform pic" /> */}
       <PlatformImage
         src={`/images/${influencer?.platform?.name}.png`}
         alt="platform pic"
