@@ -32,7 +32,7 @@ const InfluencerSearch = () => {
     if (!searchString) {
       return true;
     }
-    return inf?.platform?.name === searchString;
+    return inf?.platform?.name === searchString || inf?.handle === searchString;
   };
 
   return (
