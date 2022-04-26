@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const InfluencerSearch = () => {
   const [influencers, setInfluencers] = useState(null);
-
   const [searchString, setSearchString] = useState("");
   const [platformString, setPlatformString] = useState("all");
 
@@ -27,6 +26,13 @@ const InfluencerSearch = () => {
       return true;
     }
     return inf?.platform?.name === platformString;
+  };
+
+  const searchInfluencers = (inf) => {
+    if (!searchString) {
+      return true;
+    }
+    return inf?.platform?.name === searchString;
   };
 
   return (
@@ -56,7 +62,7 @@ const InfluencerSearch = () => {
         {!influencers && <Loader />}
         <div>
           {influencers
-            // ?.filter((inf) => inf?.platform?.name === platformString )
+            ?.filter((inf) => searchInfluencers(inf))
             ?.filter((inf) => filterInfluencers(inf))
             .map((filteredInfluencer, i) => (
               <InfluencerCard
