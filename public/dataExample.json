@@ -1,0 +1,22 @@
+{
+  "influencer":
+  [
+    {
+      "id": 1, 
+      "handle": "mattholland8", 
+      "followers": "80_024", 
+      "profile_pic_url": "https://pbs.twimg.com/profile_images/1359778507224723457/QrykIUlp.jpg",
+      "platform": {
+        "id": 1,
+        "name": "facebook",
+        "base_url": "https://www.facebook.com/"
+      },
+      "primary_tag": {"id": 1, "name": "football"},
+      "tags": [
+        {"id": 7, "name": "freestyler"}, 
+        {"id": 2, "name": "swimming"}, 
+        {"id": 4, "name": "dancing"}
+      ]
+    }
+  ]
+}

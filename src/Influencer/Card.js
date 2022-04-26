@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { errorDefaultSrc } from "../Helpers.js";
 
 const InfluencerCard = ({ influencer }) => {
-  const getImage = (platform) => require(`../images/${platform}.png`);
+  // const getImage = (platform) => require(`../images/${platform}.png`);
 
   return (
     <Card>
@@ -17,14 +17,26 @@ const InfluencerCard = ({ influencer }) => {
       <ContentContainer>
         <FieldTitle>Handle</FieldTitle>
         <CardFields>{influencer?.handle}</CardFields>
-        <FieldTitle>Tags</FieldTitle>
+        <FieldTitle>Primary Tag</FieldTitle>
+        <TagContainer>{influencer?.primary_tag?.name}</TagContainer>
+        <FieldTitle>Secondary Tags</FieldTitle>
         <TagContainer>
           {influencer?.tags.map((tag) => (
             <Tag key={"inf_tag_key" + influencer.id + tag.id}>{tag.name}</Tag>
           ))}
         </TagContainer>
       </ContentContainer>
-      <PlatformImage src={getImage(influencer?.platform?.name)?.default} />
+      <div>
+        {/* {console.log(
+          typeof getImage(influencer?.platform?.name),
+          "console image stuff"
+        )} */}
+      </div>
+      {/* <PlatformImage src={getImage(influencer?.platform?.name)} alt="platform pic" /> */}
+      <PlatformImage
+        src={`/images/${influencer?.platform?.name}.png`}
+        alt="platform pic"
+      />
     </Card>
   );
 };
