@@ -22,6 +22,13 @@ const InfluencerSearch = () => {
       .then((response) => response.json())
       .then((data) => setInfluencers(data));
 
+  const filterInfluencers = (inf) => {
+    if (platformString === "all") {
+      return true;
+    }
+    return inf?.platform?.name === platformString;
+  };
+
   return (
     <div>
       <SearchInputContainer>
@@ -49,7 +56,8 @@ const InfluencerSearch = () => {
         {!influencers && <Loader />}
         <div>
           {influencers
-            ?.filter((inf) => inf?.platform?.name === platformString) // need to add validation for Tick-Tock vs tiktok
+            // ?.filter((inf) => inf?.platform?.name === platformString )
+            ?.filter((inf) => filterInfluencers(inf))
             .map((filteredInfluencer, i) => (
               <InfluencerCard
                 influencer={filteredInfluencer}
