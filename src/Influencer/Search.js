@@ -6,6 +6,7 @@ const InfluencerSearch = () => {
   const [influencers, setInfluencers] = useState(null);
   const [searchString, setSearchString] = useState("");
   const [platformString, setPlatformString] = useState("all");
+  const [influencerCount, setInfluencerCount] = useState("descending");
 
   useEffect(() => {
     getInfluencers();
@@ -51,6 +52,20 @@ const InfluencerSearch = () => {
     );
   };
 
+  const orderInfluencersByCount = (infA, infB) => {
+    if (influencerCount === "descending") {
+      return infB?.followers - infA?.followers;
+    } else {
+      return infA?.followers - infB?.followers;
+    }
+  };
+
+  const sortedInfluencers = influencers
+    ?.filter(searchInfluencers)
+    ?.filter(selectInfluencerPlatform)
+    ?.sort(orderInfluencersByCount);
+
+  // show influencer with associated primary tag prior to influencer with secondary tag
   return (
     <div>
       <SearchInputContainer>
@@ -60,6 +75,7 @@ const InfluencerSearch = () => {
           value={searchString}
           onChange={(e) => setSearchString(e.target.value)}
         />
+
         <SelectInput
           value={platformString}
           onChange={(e) => setPlatformString(e.target.value)}
@@ -73,19 +89,26 @@ const InfluencerSearch = () => {
           <option value="tiktok">Tik-Tok</option>
           <option value="youtube">Youtube</option>
         </SelectInput>
+
+        <SelectInput
+          value={influencerCount}
+          onChange={(e) => setInfluencerCount(e.target.value)}
+          name="influencers"
+          id="influencers"
+        >
+          <option value="descending">Followers ↑</option>
+          <option value="ascending">Followers ↓</option>
+        </SelectInput>
       </SearchInputContainer>
       <SearchContainer>
         {!influencers && <Loader />}
         <div>
-          {influencers
-            ?.filter((inf) => searchInfluencers(inf))
-            ?.filter((inf) => selectInfluencerPlatform(inf))
-            .map((filteredInfluencer, i) => (
-              <InfluencerCard
-                influencer={filteredInfluencer}
-                key={"inf_card_" + i}
-              />
-            ))}
+          {sortedInfluencers?.map((filteredInfluencer, i) => (
+            <InfluencerCard
+              influencer={filteredInfluencer}
+              key={"inf_card_" + i}
+            />
+          ))}
         </div>
       </SearchContainer>
     </div>
