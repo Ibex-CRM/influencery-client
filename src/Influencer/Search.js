@@ -21,11 +21,22 @@ const InfluencerSearch = () => {
       .then((response) => response.json())
       .then((data) => setInfluencers(data));
 
-  const filterInfluencers = (inf) => {
+  const selectPlatformName = (inf) => inf?.platform?.name === platformString;
+
+  const searchPlatformName = (inf) => inf?.platform?.name === searchString;
+
+  const searchInfluencerHandle = (inf) => inf?.handle === searchString;
+
+  const searchPrimaryTag = (inf) => inf?.primary_tag?.name === searchString;
+
+  const searchTags = (inf) =>
+    inf?.tags?.some((tag) => tag.name === searchString);
+
+  const selectInfluencerPlatform = (inf) => {
     if (platformString === "all") {
       return true;
     }
-    return inf?.platform?.name === platformString;
+    return selectPlatformName(inf);
   };
 
   const searchInfluencers = (inf) => {
@@ -33,10 +44,10 @@ const InfluencerSearch = () => {
       return true;
     }
     return (
-      inf?.platform?.name === searchString ||
-      inf?.handle === searchString ||
-      inf?.primary_tag?.name === searchString ||
-      inf?.tags?.some((tag) => tag.name === searchString)
+      searchPlatformName(inf) ||
+      searchInfluencerHandle(inf) ||
+      searchPrimaryTag(inf) ||
+      searchTags(inf)
     );
   };
 
@@ -68,18 +79,13 @@ const InfluencerSearch = () => {
         <div>
           {influencers
             ?.filter((inf) => searchInfluencers(inf))
-            ?.filter((inf) => filterInfluencers(inf))
+            ?.filter((inf) => selectInfluencerPlatform(inf))
             .map((filteredInfluencer, i) => (
               <InfluencerCard
                 influencer={filteredInfluencer}
                 key={"inf_card_" + i}
               />
             ))}
-
-          {/* {
-          influencers?.map((inf, i) => (
-            <InfluencerCard influencer={inf} key={"inf_card_" + i} />
-          ))} */}
         </div>
       </SearchContainer>
     </div>
