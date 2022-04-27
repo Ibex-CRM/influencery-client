@@ -35,7 +35,8 @@ const InfluencerSearch = () => {
     return (
       inf?.platform?.name === searchString ||
       inf?.handle === searchString ||
-      inf?.primary_tag?.name === searchString
+      inf?.primary_tag?.name === searchString ||
+      inf?.tags?.some((tag) => tag.name === searchString)
     );
   };
 
