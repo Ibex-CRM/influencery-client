@@ -65,7 +65,6 @@ const InfluencerSearch = () => {
     ?.filter(selectInfluencerPlatform)
     ?.sort(orderInfluencersByCount);
 
-  // show influencer with associated primary tag prior to influencer with secondary tag
   return (
     <div>
       <SearchInputContainer>
